@@ -23,6 +23,7 @@ public class Main {
                     int accessLevel = login();
                     if (accessLevel == 2) adminMenu();
                     if (accessLevel == 1) ;
+                    if (accessLevel == 0) System.out.println("Wrong username or user not found!");
                     break;
                 case "2":
                     createUser();
@@ -38,6 +39,11 @@ public class Main {
     }
 
     public static void showListOfUsers() {
+        String username = "Username";
+        String fName = "First name";
+        String lName = "Last name";
+        String pNumber = "Personal number";
+        System.out.printf("|%-15s |%-15s |%-15s |%-20s %n", username, fName, lName, pNumber);
         for (User users : userlist) {
             users.userInfo();
         }
@@ -67,12 +73,13 @@ public class Main {
 
         User user = new User(username, fName, lName, pNumber);
         userlist.add(user);
+        System.out.println("User created!");
 
     }
 
     public static int login() {
         Scanner input = new Scanner(System.in);
-        int loginOK = -1;
+        int loginOK = 0;
         System.out.print("Enter your username to login: ");
         String username = input.nextLine();
         if (username.equalsIgnoreCase("admin")) {
@@ -89,10 +96,7 @@ public class Main {
                 if (username.equalsIgnoreCase(userlist.get(i).getUsername())) {
                     loginOK = 1;
                     System.out.println("Logged in as " + userlist.get(i).getUsername());
-                }
-                else {
-                    loginOK = -1;
-                    System.out.println("Wrong username or user not found!");
+                    break;
                 }
             }
         }
@@ -113,6 +117,7 @@ public class Main {
             String choice = input.nextLine();
             switch (choice) {
                 case "1":
+                    showListOfUsers();
                     break;
                 case "2":
                     break;

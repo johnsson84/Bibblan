@@ -38,11 +38,6 @@ public class User {
     }
 
     public void userInfo() {
-        String username = "Username";
-        String fName = "First name";
-        String lName = "Last name";
-        String pNumber = "Personal number";
-        System.out.printf("|%-15s |%-15s |%-15s |%-20s %n", username, fName, lName, pNumber);
         System.out.printf("|%-15s |%-15s |%-15s |%-20s %n", this.username, this.firstName, this.lastName, personalNumber);
     }
 
