@@ -29,4 +29,10 @@ public class Book {
     public String getShortInfo() {
         return shortInfo;
     }
+    public void bookInfo() {
+        System.out.printf("|%-15s |%");
+    }
 }
+
+
+
