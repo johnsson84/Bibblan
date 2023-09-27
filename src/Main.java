@@ -1,7 +1,19 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    public static List<User> userlist = new ArrayList<>(10);
+
+
+
+    public static void showListOfUsers() {
+        for (User users : userlist) {
+            users.userInfo();
+        }
+    }
+
     public static void createUser() {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter first name: ");
@@ -23,10 +35,13 @@ public class Main {
         }
 
         User user = new User(fName, lName, pNumber);
+        userlist.add(user);
 
     }
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+
+
 
     }
 }

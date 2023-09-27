@@ -12,7 +12,6 @@ public class User {
         }
         else {
             this.personalNumber = personalNumber;
-            System.out.println("User created!");
         }
 
     }
@@ -27,6 +26,14 @@ public class User {
 
     public long getPersonalNumber() {
         return personalNumber;
+    }
+
+    public void userInfo() {
+        String fName = "First name";
+        String lName = "Last name";
+        String pNumber = "Personal number";
+        System.out.printf("|%-15s |%-15s |%-20s %n", fName, lName, pNumber);
+        System.out.printf("|%-15s |%-15s |%-20s %n", this.firstName, this.lastName, personalNumber);
     }
 
 
