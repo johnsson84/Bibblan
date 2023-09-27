@@ -40,6 +40,27 @@ public class Main {
     }
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        boolean isRunning = true;
+        while (isRunning) {
+            System.out.println("\nBIBBLAN");
+            System.out.println("1. Login" +
+                             "\n2. Create new user" +
+                             "\n3. Quit");
+            System.out.print("Enter: ");
+            String mainChoice = input.nextLine();
+            switch (mainChoice) {
+                case "1":
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    isRunning = false;
+                    break;
+                default:
+                    System.out.print("Wrong menu choice, try again: ");
+                    break;
+            }
+        }
 
 
 
