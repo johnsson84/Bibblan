@@ -8,6 +8,7 @@ public class Main {
     static List<User> userlist = new ArrayList<>(10);
     static List<Book> booklist = new ArrayList<>(15);
     static List<Book> borrowedBookList = new ArrayList<>(15);
+    static int currentUser = -1;
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -66,42 +67,42 @@ public class Main {
     }
     public static void defaultBooks() {
         Book book1 = new Book("Volodymyr Zelenskyj : i huvudet på en hjälte", "Régis Genté",
-                "När Ryssland invaderade Ukraina klev Volodymyr Zelenskyj fram som en orädd ledare för sitt " +
+                "När Ryssland invaderade Ukraina klev Volodymyr Zelenskyj fram som en orädd ledare för sitt\n " +
                         "land och för kontinentens frihetskamp.");
         Book book2 = new Book("Bokälskare", "Emily Henry",
-                "Hela Nora Stephens liv består av böcker. Som litterär agent i New York gör hon allt för sina " +
-                        "författare, men också för sin älskade lillasyster Libby. Så när Libby ber Nora följa med till " +
-                        "den idylliska småstaden Sunshine Falls i North Carolina ställer hon upp, om än motvilligt. " +
-                        "Planen är att de ska ha en avkopplande systersemester tillsammans, samtidigt som Libby i " +
-                        "hemlighet hoppas att Nora ska bli hjälte i sitt eget liv och inte bara i andras. Men i stället " +
-                        "för picknickar i mysiga gläntor och heta möten med någon sexig skogshuggare eller snygg " +
-                        "landsortsläkare, springer Nora ideligen på Charlie Lastra, en butter förläggare som också " +
-                        "kommer från New York. Det skulle kanske ha kunnat bli gulligt och romantiskt, om det inte " +
-                        "vore för det faktum att Nora och Charlie redan har träffats massor av gånger hemma i stan, " +
+                "Hela Nora Stephens liv består av böcker. Som litterär agent i New York gör hon allt för sina\n " +
+                        "författare, men också för sin älskade lillasyster Libby. Så när Libby ber Nora följa med\n till " +
+                        "den idylliska småstaden Sunshine Falls i North Carolina ställer hon upp, om än motvilligt.\n " +
+                        "Planen är att de ska ha en avkopplande systersemester tillsammans, samtidigt som Libby i\n " +
+                        "hemlighet hoppas att Nora ska bli hjälte i sitt eget liv och inte bara i andras. Men i\n stället " +
+                        "för picknickar i mysiga gläntor och heta möten med någon sexig skogshuggare eller snygg\n " +
+                        "landsortsläkare, springer Nora ideligen på Charlie Lastra, en butter förläggare som också\n " +
+                        "kommer från New York. Det skulle kanske ha kunnat bli gulligt och romantiskt, om det inte\n " +
+                        "vore för det faktum att Nora och Charlie redan har träffats massor av gånger hemma i stan,\n " +
                         "och det har aldrig varit det minsta gulligt ... ");
-        Book book3 = new Book("Barnsköterskan", "Stacey Halls", "West Yorkshire, 1904. " +
-                "Nyutexaminerade barnsköterskan Ruby May tar en tjänst hos Charles och Lilian England, ett välbärgat " +
-                "par med rötter i en dynasti av kvarnägare. Hon hoppas att det ska vara nystarten hon behöver. " +
-                "Hon försöker göra sig hemmastadd i det isolerade huset Hardcastle, men märker ganska snart att " +
-                "någonting inte är riktigt som det ska med den vackra, mystiska Mrs England. Utfryst av husets övriga " +
-                "tjänare tvingas Ruby konfrontera sina egna demoner för att hindra att historien upprepar sig. Hon, " +
-                "om någon, vet att något sådant som den perfekta familjen inte existerar. ");
-        Book book4 = new Book("En enkel till Indien", "Cassandra Brunstedt", "Modejournalisten " +
-                "Ella Franks största dröm blir verklighet när hon blir erbjuden jobbet som chefredaktör för den " +
-                "skandinaviska utgåvan av världens största modemagasin. Men mitt i drömmen inser Ella att hon borde " +
-                "varit försiktigare med vad hon önskat sig. Löftet om en ny och lycklig tillvaro med inflytande, " +
-                "pengar och lyxiga champagnemingel visar sig snart ha varit för bra för att vara sant. Och en olycka " +
-                "kommer sällan ensam. När Ellas liv rasar samman vet hon inte längre vad hon ska ta sig till. Utmattad " +
-                "och besviken bokar hon en enkel biljett till Indien och checkar in på ett ashram. Där möter hon " +
-                "meditationsläraren Amit som öppnar hennes ögon på fler sätt än hon trodde var möjligt. ");
-        Book book5 = new Book("Kallmyren", "Liza Marklund", "I augusti 1990 gick Wiking Stormbergs " +
-                "fru Helena ner sig i Kallmyren och drunknade. Kvar vid myrkanten låg deras baby, halvdöd av " +
-                "insektsbett. Helenas kropp återfanns aldrig. Hon hördes aldrig mera av. Wiking kom aldrig över " +
-                "förlusten av hustrun. Åren gick, decennierna. Han kom att leva för sina barn och sitt arbete som " +
-                "polischef i Stenträsk. Men så en fredagseftermiddag landar ett brev i brevlådan hemma hos Markus, " +
-                "Wikings och Helenas numera vuxne son. Ett hot, eller kanske en varning, skrivet med Helenas " +
-                "handstil och undertecknat med hennes signatur: stjärnan som ser ut som ärret på hennes mage. " +
-                "Wiking måste ställa sig frågan om han börjar bli galen, om han ser spöken eller om någon utomstående " +
+        Book book3 = new Book("Barnsköterskan", "Stacey Halls", "West Yorkshire, 1904.\n " +
+                "Nyutexaminerade barnsköterskan Ruby May tar en tjänst hos Charles och Lilian England, ett välbärgat\n " +
+                "par med rötter i en dynasti av kvarnägare. Hon hoppas att det ska vara nystarten hon behöver.\n " +
+                "Hon försöker göra sig hemmastadd i det isolerade huset Hardcastle, men märker ganska snart att\n " +
+                "någonting inte är riktigt som det ska med den vackra, mystiska Mrs England. Utfryst av husets\n övriga " +
+                "tjänare tvingas Ruby konfrontera sina egna demoner för att hindra att historien upprepar sig.\n Hon, " +
+                "om någon, vet att något sådant som den perfekta familjen inte existerar.\n ");
+        Book book4 = new Book("En enkel till Indien", "Cassandra Brunstedt", "Modejournalisten\n " +
+                "Ella Franks största dröm blir verklighet när hon blir erbjuden jobbet som chefredaktör för den\n " +
+                "skandinaviska utgåvan av världens största modemagasin. Men mitt i drömmen inser Ella att hon borde\n " +
+                "varit försiktigare med vad hon önskat sig. Löftet om en ny och lycklig tillvaro med inflytande,\n " +
+                "pengar och lyxiga champagnemingel visar sig snart ha varit för bra för att vara sant. Och en olycka\n " +
+                "kommer sällan ensam. När Ellas liv rasar samman vet hon inte längre vad hon ska ta sig till. Utmattad\n " +
+                "och besviken bokar hon en enkel biljett till Indien och checkar in på ett ashram. Där möter hon\n " +
+                "meditationsläraren Amit som öppnar hennes ögon på fler sätt än hon trodde var möjligt.\n ");
+        Book book5 = new Book("Kallmyren", "Liza Marklund", "I augusti 1990 gick Wiking Stormbergs\n " +
+                "fru Helena ner sig i Kallmyren och drunknade. Kvar vid myrkanten låg deras baby, halvdöd av\n " +
+                "insektsbett. Helenas kropp återfanns aldrig. Hon hördes aldrig mera av. Wiking kom aldrig över\n " +
+                "förlusten av hustrun. Åren gick, decennierna. Han kom att leva för sina barn och sitt arbete som\n " +
+                "polischef i Stenträsk. Men så en fredagseftermiddag landar ett brev i brevlådan hemma hos Markus,\n " +
+                "Wikings och Helenas numera vuxne son. Ett hot, eller kanske en varning, skrivet med Helenas\n " +
+                "handstil och undertecknat med hennes signatur: stjärnan som ser ut som ärret på hennes mage.\n " +
+                "Wiking måste ställa sig frågan om han börjar bli galen, om han ser spöken eller om någon\n utomstående " +
                 "kraft hotar honom och hans familj. ");
         booklist.add(book1);
         booklist.add(book2);
@@ -169,6 +170,7 @@ public class Main {
                 if (username.equalsIgnoreCase(userlist.get(i).getUsername())) {
                     loginOK = 1;
                     System.out.println("Logged in as " + userlist.get(i).getUsername());
+                    currentUser = i;
                     break;
                 }
             }
@@ -193,19 +195,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
         if (!booklist.isEmpty()) {
             System.out.println("Enter number of the book to remove (0 to cancel): ");
-            int nr = 0;
-            while (true) {
-                try {
-                    nr = input.nextInt();
-                    if (nr >= 0) {
-                        break;
-                    }
-                    else System.out.print("Number cant be negative! Try again: ");
-                } catch (InputMismatchException e) {
-                    System.out.print("Only numbers! Try again: ");
-                    input.nextLine();
-                }
-            }
+            int nr = pickNumber();
             if (nr > 0) {
                 System.out.println("Book \"" + booklist.get(nr-1).getName() + "\" removed from the collection!");
                 booklist.remove((nr - 1));
@@ -247,6 +237,42 @@ public class Main {
         }
     }
 
+    public static int pickNumber() {
+        Scanner input = new Scanner(System.in);
+        int nr = 0;
+        while (true) {
+            try {
+                nr = input.nextInt();
+                if (nr >= 0) {
+                    break;
+                }
+                else System.out.print("Number cant be negative! Try again: ");
+            } catch (InputMismatchException e) {
+                System.out.print("Only numbers! Try again: ");
+                input.nextLine();
+            }
+        }
+        return nr;
+    }
+
+    public static void borrowBook() {
+        System.out.println("Do you want to borrow a book?");
+        System.out.print("Enter book number or 0 to cancel: ");
+        int nr = pickNumber();
+        if (nr > 0) {
+            System.out.println("Book \"" + booklist.get(nr-1).getName() + "\" borrowed from the collection!");
+            borrowedBookList.add(booklist.get((nr - 1)));
+            userlist.get(currentUser).addBook(booklist.get((nr - 1)));
+            booklist.remove((nr - 1));
+        }
+    }
+
+    public static void showBookInfo() {
+        for (int i = 0; i < booklist.size(); i++) {
+            booklist.get(i).bookInfo();
+        }
+    }
+
     public static void userMenu() {
         Scanner input = new Scanner(System.in);
         boolean userMenuRunning = true;
@@ -262,12 +288,20 @@ public class Main {
             String choice = input.nextLine();
             switch (choice) {
                 case "1":
+                    listAllBooks();
                     break;
                 case "2":
+                    listAvailableBooks();
+                    borrowBook();
                     break;
                 case "3":
+                    showBookInfo();
                     break;
                 case "4":
+                    System.out.println("Your borrowed books");
+                    for (int i = 0; i < userlist.get(currentUser).getBorrowedBooks().size(); i++) {
+                        System.out.println(userlist.get(currentUser).getBorrowedBooks().get(i).getName());
+                    }
                     break;
                 case "5":
                     break;

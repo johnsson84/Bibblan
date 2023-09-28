@@ -30,7 +30,14 @@ public class Book {
         return shortInfo;
     }
     public void bookInfo() {
-        System.out.printf("|%-15s |%");
+        String name = "Name";
+        String author = "Author";
+        String info = "Info";
+        System.out.println("##########################################################################################");
+        System.out.printf("|%-60s |%-15s %n", name, author);
+        System.out.printf("|%-60s |%-15s %n", this.name, this.author);
+        System.out.printf("|%-15s %n", info);
+        System.out.printf("|%-15s %n", this.shortInfo);
     }
 }
 
