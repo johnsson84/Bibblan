@@ -233,6 +233,8 @@ public class Main {
                 case "5":
                     adminMenuRunning = false;
                     break;
+                default:
+                    System.out.print("Wrong menu choice, try again: ");
             }
         }
     }
@@ -273,6 +275,33 @@ public class Main {
         }
     }
 
+    public static void showBorrowedBooks() {
+        System.out.println("Your borrowed books");
+        for (int i = 0; i < userlist.get(currentUser).getBorrowedBooks().size(); i++) {
+            System.out.println((i+1) + ". " + userlist.get(currentUser).getBorrowedBooks().get(i).getName());
+        }
+    }
+
+    public static void returnBook() {
+        showBorrowedBooks();
+        System.out.print("Enter the book you want to return (0 to cancel): ");
+        int nr = (pickNumber() - 1);
+        String bookName = userlist.get(currentUser).getBorrowedBooks().get(nr).getName();
+        booklist.add(userlist.get(currentUser).getBorrowedBooks().get(nr));
+        for (int i = 0; i < userlist.get(currentUser).getBorrowedBooks().size(); i++) {
+            if (bookName.equals(userlist.get(currentUser).getBorrowedBooks().get(i).getName())) {
+                userlist.get(currentUser).removeBook(userlist.get(currentUser).getBorrowedBooks().get(i));
+            }
+        }
+        for (int i = 0; i < borrowedBookList.size(); i++) {
+            if (bookName.equals(borrowedBookList.get(i).getName())) {
+                borrowedBookList.remove(borrowedBookList.get(i));
+            }
+        }
+        System.out.println("Book returned!");
+
+    }
+
     public static void userMenu() {
         Scanner input = new Scanner(System.in);
         boolean userMenuRunning = true;
@@ -298,15 +327,16 @@ public class Main {
                     showBookInfo();
                     break;
                 case "4":
-                    System.out.println("Your borrowed books");
-                    for (int i = 0; i < userlist.get(currentUser).getBorrowedBooks().size(); i++) {
-                        System.out.println(userlist.get(currentUser).getBorrowedBooks().get(i).getName());
-                    }
+                    showBorrowedBooks();
                     break;
                 case "5":
+                    returnBook();
                     break;
                 case "6":
                     userMenuRunning = false;
+                    break;
+                default:
+                    System.out.print("Wrong menu choice, try again: ");
                     break;
             }
         }
