@@ -5,20 +5,21 @@ import java.util.Scanner;
 
 public class Main {
 
-    static List<User> userlist = new ArrayList<>(10);
-    static List<Book> booklist = new ArrayList<>(15);
-    static List<Book> borrowedBookList = new ArrayList<>(15);
-    static int currentUser = -1;
+    static List<User> userlist = new ArrayList<>(10); // Lista med användare
+    static List<Book> booklist = new ArrayList<>(15); // Lista med tillgängliga böcker
+    static List<Book> borrowedBookList = new ArrayList<>(15); // Lista med lånade böcker
+    static int currentUser = -1; // Anger vem som är aktiv från användarlistan
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         defaultBooks();
-        User admin = new User("admin");
-        User test = new User("test");
+        User admin = new User("admin"); // Default admin konto
+        User test = new User("test"); // Test användare
         userlist.add(admin);
         userlist.add(test);
-        boolean isRunning = true;
+        boolean isRunning = true; // Anger att programmet körs
         while (isRunning) {
+            // Main menu
             System.out.println("\nBIBBLAN");
             System.out.println("1. Login" +
                              "\n2. Create new user" +
@@ -27,16 +28,16 @@ public class Main {
             String mainChoice = input.nextLine();
             switch (mainChoice) {
                 case "1":
-                    int accessLevel = login();
+                    int accessLevel = login(); // kör login metoden och beroende på accesslevel så körs fler metoder under
                     if (accessLevel == 2) adminMenu();
                     if (accessLevel == 1) userMenu();
                     if (accessLevel == 0) System.out.println("Wrong username or user not found!");
                     break;
                 case "2":
-                    createUser();
+                    createUser(); // Kör skapa användare metoden
                     break;
                 case "3":
-                    isRunning = false;
+                    isRunning = false; // Avslutar programmet
                     break;
                 default:
                     System.out.print("Wrong menu choice, try again: ");
@@ -45,12 +46,14 @@ public class Main {
         }
     }
     public static void listBorrowedBooks() {
+        // Loopar igenom lsitan med lånade böcker
         System.out.println("\nLIST OF BORROWED BOOKS");
         for (int i = 0; i < borrowedBookList.size(); i++) {
             System.out.println((i+1) + ". \"" + borrowedBookList.get(i).getName() + "\"");
         }
     }
     public static void listAllBooks() {
+        // Loopar igenom båda listor och visar alla böcker
         System.out.println("\nLIST OF ALL BOOKS");
         for (int i = 0; i < booklist.size(); i++) {
             System.out.println("\"" + booklist.get(i).getName() + "\"");
@@ -60,12 +63,14 @@ public class Main {
         }
     }
     public static void listAvailableBooks() {
+        // Loopar listan med tillgängliga böcker
         System.out.println("\nLIST OF BORROWED BOOKS");
         for (int i = 0; i < booklist.size(); i++) {
             System.out.println((i+1) + ". \"" + booklist.get(i).getName() + "\"");
         }
     }
     public static void defaultBooks() {
+        // En metod som lägger till några default böcker
         Book book1 = new Book("Volodymyr Zelenskyj : i huvudet på en hjälte", "Régis Genté",
                 "När Ryssland invaderade Ukraina klev Volodymyr Zelenskyj fram som en orädd ledare för sitt\n " +
                         "land och för kontinentens frihetskamp.");
@@ -109,10 +114,11 @@ public class Main {
         borrowedBookList.add(book3);
         booklist.add(book4);
         booklist.add(book5);
-        booklist.get(3).isAvailable = false;
+        // booklist.get(3).isAvailable = false; // isAvailable används inte i programmet som tänkt.
     }
 
     public static void showListOfUsers() {
+        // Visar en lista över alla användare
         String username = "Username";
         String fName = "First name";
         String lName = "Last name";
@@ -124,6 +130,7 @@ public class Main {
     }
 
     public static void createUser() {
+        // Skapa en användare
         Scanner input = new Scanner(System.in);
         System.out.print("Enter username: ");
         String username = input.nextLine();
@@ -132,6 +139,7 @@ public class Main {
         System.out.print("Enter last name: ");
         String lName = input.nextLine();
 
+        // För att spara ett 12 siffrigt personnummer måste long användas
         System.out.print("Enter personal number (12 numbers): ");
         long pNumber = 0L;
         while (true) {
@@ -152,10 +160,17 @@ public class Main {
     }
 
     public static int login() {
+        /*
+        Login metod. Här returneras ett nummer som anger accesslevel.
+        0 = fel eller ingen användare
+        1 = vanlig användare
+        2 = admin
+         */
         Scanner input = new Scanner(System.in);
         int loginOK = 0;
         System.out.print("Enter your username to login: ");
         String username = input.nextLine();
+        // Om man matar in admin får man även ange ett lösenord
         if (username.equalsIgnoreCase("admin")) {
             System.out.print("Enter password: ");
             String password = input.nextLine();
@@ -166,6 +181,7 @@ public class Main {
             else System.out.println("Wrong password!");
         }
         else {
+            // Loopar igenom user listan och kollar om det inmatade användarnamnet finns
             for (int i = 0; i < userlist.size(); i++) {
                 if (username.equalsIgnoreCase(userlist.get(i).getUsername())) {
                     loginOK = 1;
@@ -179,6 +195,7 @@ public class Main {
     }
 
     public static void addBook() {
+        // Lägg till en bok
         Scanner input = new Scanner(System.in);
         System.out.print("Enter book name: ");
         String bookName = input.nextLine();;
@@ -192,10 +209,11 @@ public class Main {
     }
 
     public static void removeBook() {
+        // Ta bort en bok
         Scanner input = new Scanner(System.in);
-        if (!booklist.isEmpty()) {
+        if (!booklist.isEmpty()) { // Kolla först att listan är tom
             System.out.println("Enter number of the book to remove (0 to cancel): ");
-            int nr = pickNumber();
+            int nr = pickNumber(); // Kör pickNumber metoden
             if (nr > 0) {
                 System.out.println("Book \"" + booklist.get(nr-1).getName() + "\" removed from the collection!");
                 booklist.remove((nr - 1));
@@ -205,6 +223,7 @@ public class Main {
     }
 
     public static void adminMenu() {
+        // Admin menyn
         Scanner input = new Scanner(System.in);
         boolean adminMenuRunning = true;
         while (adminMenuRunning) {
@@ -231,7 +250,7 @@ public class Main {
                     removeBook();
                     break;
                 case "5":
-                    adminMenuRunning = false;
+                    adminMenuRunning = false; // Hoppa tillbaka till huvudmenyn
                     break;
                 default:
                     System.out.print("Wrong menu choice, try again: ");
@@ -240,6 +259,7 @@ public class Main {
     }
 
     public static int pickNumber() {
+        // Metod för att returnera en siffra som används för att välja en bok i någon lista
         Scanner input = new Scanner(System.in);
         int nr = 0;
         while (true) {
@@ -258,24 +278,27 @@ public class Main {
     }
 
     public static void borrowBook() {
+        // Låna en bok
         System.out.println("Do you want to borrow a book?");
         System.out.print("Enter book number or 0 to cancel: ");
         int nr = pickNumber();
         if (nr > 0) {
             System.out.println("Book \"" + booklist.get(nr-1).getName() + "\" borrowed from the collection!");
-            borrowedBookList.add(booklist.get((nr - 1)));
-            userlist.get(currentUser).addBook(booklist.get((nr - 1)));
-            booklist.remove((nr - 1));
+            borrowedBookList.add(booklist.get((nr - 1))); // Lägger till boken i lånade böcker listan
+            userlist.get(currentUser).addBook(booklist.get((nr - 1))); // Lägger till boken i den aktuella användarens boklista
+            booklist.remove((nr - 1)); // Tar bort boken från huvudlistan
         }
     }
 
     public static void showBookInfo() {
+        // Visar bok info om varje bok som finns tillgänglig, se mer om bookInfo() i bok klassen
         for (int i = 0; i < booklist.size(); i++) {
             booklist.get(i).bookInfo();
         }
     }
 
     public static void showBorrowedBooks() {
+        // Visar lånade böcker från den inloggade usern
         System.out.println("Your borrowed books");
         for (int i = 0; i < userlist.get(currentUser).getBorrowedBooks().size(); i++) {
             System.out.println((i+1) + ". " + userlist.get(currentUser).getBorrowedBooks().get(i).getName());
@@ -283,6 +306,7 @@ public class Main {
     }
 
     public static void returnBook() {
+        // Den svåraste metoden, knappt jag fick ihop det här...
         showBorrowedBooks();
         System.out.print("Enter the book you want to return (0 to cancel): ");
         int nr = (pickNumber() - 1);
@@ -303,6 +327,7 @@ public class Main {
     }
 
     public static void userMenu() {
+        // Användar menyn
         Scanner input = new Scanner(System.in);
         boolean userMenuRunning = true;
         while (userMenuRunning) {
