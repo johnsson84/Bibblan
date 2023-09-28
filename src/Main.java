@@ -123,7 +123,10 @@ public class Main {
         String fName = "First name";
         String lName = "Last name";
         String pNumber = "Personal number";
+        String line15 = "---------------";
+        String line20 = "--------------------;";
         System.out.printf("|%-15s |%-15s |%-15s |%-20s %n", username, fName, lName, pNumber);
+        System.out.printf("|%-15s |%-15s |%-15s |%-20s %n", line15, line15, line15, line20);
         for (User users : userlist) {
             users.userInfo();
         }
@@ -224,7 +227,7 @@ public class Main {
         else System.out.println("List is empty!");
     }
 
-    public static void adminMenu() {
+    public static void adminMenu() git {
         // Admin menyn
         Scanner input = new Scanner(System.in);
         boolean adminMenuRunning = true;
@@ -255,7 +258,7 @@ public class Main {
                     adminMenuRunning = false; // Hoppa tillbaka till huvudmenyn
                     break;
                 default:
-                    System.out.print("Wrong menu choice, try again: ");
+                    System.out.println("Wrong menu choice, try again");
             }
         }
     }
@@ -285,10 +288,15 @@ public class Main {
         System.out.print("Enter book number or 0 to cancel: ");
         int nr = pickNumber();
         if (nr > 0) {
-            System.out.println("Book \"" + booklist.get(nr-1).getName() + "\" borrowed from the collection!");
-            borrowedBookList.add(booklist.get((nr - 1))); // Lägger till boken i lånade böcker listan
-            userlist.get(currentUser).addBook(booklist.get((nr - 1))); // Lägger till boken i den aktuella användarens boklista
-            booklist.remove((nr - 1)); // Tar bort boken från huvudlistan
+            try {
+                System.out.println("Book \"" + booklist.get(nr-1).getName() + "\" borrowed from the collection!");
+                borrowedBookList.add(booklist.get((nr - 1))); // Lägger till boken i lånade böcker listan
+                userlist.get(currentUser).addBook(booklist.get((nr - 1))); // Lägger till boken i den aktuella användarens boklista
+                booklist.remove((nr - 1)); // Tar bort boken från huvudlistan
+            }
+            catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid choice");
+            }
         }
     }
 
@@ -309,25 +317,35 @@ public class Main {
 
     public static void returnBook() {
         // Den svåraste metoden, knappt jag fick ihop det här...
-        showBorrowedBooks();
-        System.out.print("Enter the book you want to return (0 to cancel): ");
-        int nr = pickNumber();
-        if (nr > 0) {
-            nr -= 1;
-            String bookName = userlist.get(currentUser).getBorrowedBooks().get(nr).getName();
-            booklist.add(userlist.get(currentUser).getBorrowedBooks().get(nr));
-            for (int i = 0; i < userlist.get(currentUser).getBorrowedBooks().size(); i++) {
-                if (bookName.equals(userlist.get(currentUser).getBorrowedBooks().get(i).getName())) {
-                    userlist.get(currentUser).removeBook(userlist.get(currentUser).getBorrowedBooks().get(i));
+        if (!userlist.get(currentUser).getBorrowedBooks().isEmpty()) {
+            showBorrowedBooks();
+            System.out.print("Enter the book you want to return (0 to cancel): ");
+            int nr = pickNumber();
+            if (nr > 0) {
+                nr -= 1;
+                try {
+                    String bookName = userlist.get(currentUser).getBorrowedBooks().get(nr).getName();
+                    booklist.add(userlist.get(currentUser).getBorrowedBooks().get(nr));
+                    for (int i = 0; i < userlist.get(currentUser).getBorrowedBooks().size(); i++) {
+                        if (bookName.equals(userlist.get(currentUser).getBorrowedBooks().get(i).getName())) {
+                            userlist.get(currentUser).removeBook(userlist.get(currentUser).getBorrowedBooks().get(i));
+                        }
+                    }
+                    for (int i = 0; i < borrowedBookList.size(); i++) {
+                        if (bookName.equals(borrowedBookList.get(i).getName())) {
+                            borrowedBookList.remove(borrowedBookList.get(i));
+                        }
+                    }
+                    System.out.println("Book returned!");
                 }
-            }
-            for (int i = 0; i < borrowedBookList.size(); i++) {
-                if (bookName.equals(borrowedBookList.get(i).getName())) {
-                    borrowedBookList.remove(borrowedBookList.get(i));
+                catch (IndexOutOfBoundsException e) {
+                    System.out.println("Invalid choice");
                 }
+
+
             }
-            System.out.println("Book returned!");
         }
+        else System.out.println("You have not borrowed any books.");
     }
 
     public static void userMenu() {
@@ -365,7 +383,7 @@ public class Main {
                     userMenuRunning = false;
                     break;
                 default:
-                    System.out.print("Wrong menu choice, try again: ");
+                    System.out.println("Wrong menu choice, try again");
                     break;
             }
         }
