@@ -10,6 +10,8 @@ public class Main {
     static List<Book> borrowedBookList = new ArrayList<>(15); // Lista med lånade böcker
     static int currentUser = -1; // Anger vem som är aktiv från användarlistan
 
+    // test to see if push can be applied
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         defaultBooks();
