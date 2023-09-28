@@ -13,8 +13,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         defaultBooks();
-        User admin = new User("admin"); // Default admin konto
-        User test = new User("test"); // Test användare
+        User admin = new User("admin", "Admin", "Admin", 194544556677L); // Default admin konto
+        User test = new User("test", "Test", "TEST", 157701010188L); // Test användare
         userlist.add(admin);
         userlist.add(test);
         boolean isRunning = true; // Anger att programmet körs
@@ -145,7 +145,9 @@ public class Main {
         while (true) {
             try {
                 pNumber = input.nextLong();
-                break;
+                int antalSiffror = String.valueOf(pNumber).length();
+                if (antalSiffror == 12) break;
+                else System.out.print("Please enter 12 numbers, try again: ");
             }
             catch (InputMismatchException e) {
                 System.out.print("Only numbers! Try again: ");
@@ -309,21 +311,23 @@ public class Main {
         // Den svåraste metoden, knappt jag fick ihop det här...
         showBorrowedBooks();
         System.out.print("Enter the book you want to return (0 to cancel): ");
-        int nr = (pickNumber() - 1);
-        String bookName = userlist.get(currentUser).getBorrowedBooks().get(nr).getName();
-        booklist.add(userlist.get(currentUser).getBorrowedBooks().get(nr));
-        for (int i = 0; i < userlist.get(currentUser).getBorrowedBooks().size(); i++) {
-            if (bookName.equals(userlist.get(currentUser).getBorrowedBooks().get(i).getName())) {
-                userlist.get(currentUser).removeBook(userlist.get(currentUser).getBorrowedBooks().get(i));
+        int nr = pickNumber();
+        if (nr > 0) {
+            nr -= 1;
+            String bookName = userlist.get(currentUser).getBorrowedBooks().get(nr).getName();
+            booklist.add(userlist.get(currentUser).getBorrowedBooks().get(nr));
+            for (int i = 0; i < userlist.get(currentUser).getBorrowedBooks().size(); i++) {
+                if (bookName.equals(userlist.get(currentUser).getBorrowedBooks().get(i).getName())) {
+                    userlist.get(currentUser).removeBook(userlist.get(currentUser).getBorrowedBooks().get(i));
+                }
             }
-        }
-        for (int i = 0; i < borrowedBookList.size(); i++) {
-            if (bookName.equals(borrowedBookList.get(i).getName())) {
-                borrowedBookList.remove(borrowedBookList.get(i));
+            for (int i = 0; i < borrowedBookList.size(); i++) {
+                if (bookName.equals(borrowedBookList.get(i).getName())) {
+                    borrowedBookList.remove(borrowedBookList.get(i));
+                }
             }
+            System.out.println("Book returned!");
         }
-        System.out.println("Book returned!");
-
     }
 
     public static void userMenu() {
