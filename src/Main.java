@@ -227,7 +227,7 @@ public class Main {
         else System.out.println("List is empty!");
     }
 
-    public static void adminMenu() git {
+    public static void adminMenu() {
         // Admin menyn
         Scanner input = new Scanner(System.in);
         boolean adminMenuRunning = true;
