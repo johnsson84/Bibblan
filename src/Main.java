@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    // added test branch
 
     static List<User> userlist = new ArrayList<>(10); // Lista med användare
     static List<Book> booklist = new ArrayList<>(15); // Lista med tillgängliga böcker
