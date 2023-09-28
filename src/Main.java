@@ -290,6 +290,7 @@ public class Main {
         if (nr > 0) {
             try {
                 System.out.println("Book \"" + booklist.get(nr-1).getName() + "\" borrowed from the collection!");
+                System.out.println("Please remember to return the book within 2 weeks.");
                 borrowedBookList.add(booklist.get((nr - 1))); // Lägger till boken i lånade böcker listan
                 userlist.get(currentUser).addBook(booklist.get((nr - 1))); // Lägger till boken i den aktuella användarens boklista
                 booklist.remove((nr - 1)); // Tar bort boken från huvudlistan
