@@ -1,7 +1,7 @@
 public class User {
     private String username;
-    private String firstName;
-    private String lastName;
+    private String firstName = " ";
+    private String lastName = " ";
     private long personalNumber;
 
     public User(String username ,String firstName, String lastName, long personalNumber) {

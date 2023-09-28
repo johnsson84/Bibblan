@@ -15,6 +15,7 @@ public class Main {
         User admin = new User("admin");
         User test = new User("test");
         userlist.add(admin);
+        userlist.add(test);
         boolean isRunning = true;
         while (isRunning) {
             System.out.println("\nBIBBLAN");
@@ -27,7 +28,7 @@ public class Main {
                 case "1":
                     int accessLevel = login();
                     if (accessLevel == 2) adminMenu();
-                    if (accessLevel == 1) ;
+                    if (accessLevel == 1) userMenu();
                     if (accessLevel == 0) System.out.println("Wrong username or user not found!");
                     break;
                 case "2":
@@ -241,6 +242,37 @@ public class Main {
                     break;
                 case "5":
                     adminMenuRunning = false;
+                    break;
+            }
+        }
+    }
+
+    public static void userMenu() {
+        Scanner input = new Scanner(System.in);
+        boolean userMenuRunning = true;
+        while (userMenuRunning) {
+            System.out.println("\nUSER MENU");
+            System.out.println("1. List all books" +
+                    "\n2. Borrow books" +
+                    "\n3. Book info" +
+                    "\n4. List books you borrowed" +
+                    "\n5. Return a book" +
+                    "\n6. Return to main menu");
+            System.out.print("Enter: ");
+            String choice = input.nextLine();
+            switch (choice) {
+                case "1":
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    break;
+                case "4":
+                    break;
+                case "5":
+                    break;
+                case "6":
+                    userMenuRunning = false;
                     break;
             }
         }
