@@ -12,6 +12,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
         defaultBooks();
         User admin = new User("admin");
+        User test = new User("test");
         userlist.add(admin);
         boolean isRunning = true;
         while (isRunning) {
@@ -160,6 +161,19 @@ public class Main {
         return loginOK;
     }
 
+    public static void addBook() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter book name: ");
+        String bookName = input.nextLine();;
+        System.out.print("Enter author: ");
+        String bookAuthor = input.nextLine();
+        System.out.println("Enter a short description: ");
+        String bookDescription = input.nextLine();
+        Book addBook = new Book(bookName, bookAuthor, bookDescription);
+        booklist.add(addBook);
+        System.out.println("Book added!");
+    }
+
     public static void adminMenu() {
         Scanner input = new Scanner(System.in);
         boolean adminMenuRunning = true;
@@ -180,6 +194,7 @@ public class Main {
                     listBorrowedBooks();
                     break;
                 case "3":
+                    addBook();
                     break;
                 case "4":
                     break;
