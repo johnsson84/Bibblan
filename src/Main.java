@@ -7,6 +7,7 @@ public class Main {
 
     static List<User> userlist = new ArrayList<>(10);
     static List<Book> booklist = new ArrayList<>(15);
+    static List<Book> borrowedBookList = new ArrayList<>(15);
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -43,10 +44,23 @@ public class Main {
     }
     public static void listBorrowedBooks() {
         System.out.println("\nLIST OF BORROWED BOOKS");
+        for (int i = 0; i < borrowedBookList.size(); i++) {
+            System.out.println((i+1) + ". \"" + borrowedBookList.get(i).getName() + "\"");
+        }
+    }
+    public static void listAllBooks() {
+        System.out.println("\nLIST OF ALL BOOKS");
         for (int i = 0; i < booklist.size(); i++) {
-            if (!booklist.get(i).isAvailable) {
-                System.out.println("\"" + booklist.get(i).getName() + "\"");
-            }
+            System.out.println("\"" + booklist.get(i).getName() + "\"");
+        }
+        for (int i = 0; i < borrowedBookList.size(); i++) {
+            System.out.println("\"" + borrowedBookList.get(i).getName() + "\"");
+        }
+    }
+    public static void listAvailableBooks() {
+        System.out.println("\nLIST OF BORROWED BOOKS");
+        for (int i = 0; i < booklist.size(); i++) {
+            System.out.println((i+1) + ". \"" + booklist.get(i).getName() + "\"");
         }
     }
     public static void defaultBooks() {
@@ -90,7 +104,7 @@ public class Main {
                 "kraft hotar honom och hans familj. ");
         booklist.add(book1);
         booklist.add(book2);
-        booklist.add(book3);
+        borrowedBookList.add(book3);
         booklist.add(book4);
         booklist.add(book5);
         booklist.get(3).isAvailable = false;
@@ -174,6 +188,31 @@ public class Main {
         System.out.println("Book added!");
     }
 
+    public static void removeBook() {
+        Scanner input = new Scanner(System.in);
+        if (!booklist.isEmpty()) {
+            System.out.println("Enter number of the book to remove (0 to cancel): ");
+            int nr = 0;
+            while (true) {
+                try {
+                    nr = input.nextInt();
+                    if (nr >= 0) {
+                        break;
+                    }
+                    else System.out.print("Number cant be negative! Try again: ");
+                } catch (InputMismatchException e) {
+                    System.out.print("Only numbers! Try again: ");
+                    input.nextLine();
+                }
+            }
+            if (nr > 0) {
+                System.out.println("Book \"" + booklist.get(nr-1).getName() + "\" removed from the collection!");
+                booklist.remove((nr - 1));
+            }
+        }
+        else System.out.println("List is empty!");
+    }
+
     public static void adminMenu() {
         Scanner input = new Scanner(System.in);
         boolean adminMenuRunning = true;
@@ -197,6 +236,8 @@ public class Main {
                     addBook();
                     break;
                 case "4":
+                    listAvailableBooks();
+                    removeBook();
                     break;
                 case "5":
                     adminMenuRunning = false;
